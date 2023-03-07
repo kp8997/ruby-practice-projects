@@ -1,0 +1,235 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-i18n-coverage
+  - ./cops/eh_cop/feature_flag.rb
+  - ./cops/eh_cop/sidekiq_options.rb
+  - ./cops/eh_cop/policy_object.rb
+  - ./cops/eh_cop/add_column_to_god_table.rb
+  - ./cops/eh_cop/abandoned_methods/accepts_nested_attribute_for.rb
+  - ./cops/eh_cop/database/index_missing_concurrent_algorithm.rb
+  - ./cops/eh_cop/database/missing_disable_ddl_transaction.rb
+  - ./cops/eh_cop/security/defense_idor.rb
+
+inherit_from:
+  - https://raw.githubusercontent.com/Thinkei/Thinkei/master/.rubocop_default_v1.yml
+  - https://raw.githubusercontent.com/Thinkei/Thinkei/master/.rubocop-rails_default_v2.yml
+  - https://raw.githubusercontent.com/Thinkei/Thinkei/master/.rubocop-performance_default_v1.yml
+  - .rubocop_todo.yml
+  - ./cops/.config.yml
+  - .rubocop_i18n.yml
+
+AllCops:
+  TargetRubyVersion: 3.1.3
+  TargetRailsVersion: 6.1.7.2
+  EnabledByDefault: false
+  DisabledByDefault: false
+
+Bundler/OrderedGems:
+  Enabled: true
+
+Rails:
+  Enabled: true
+
+Style/ExpandPathArguments:
+  Exclude:
+    - 'bin/*'
+
+Layout/TrailingWhitespace:
+  Enabled: true
+  Exclude:
+    - 'bin/*'
+
+Layout/EmptyLines:
+  Enabled: true
+  Exclude:
+    - 'bin/*'
+
+Layout/EmptyLineAfterMagicComment:
+  Exclude:
+    - 'bin/*'
+
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: space
+
+#--------------------
+
+Layout/ParameterAlignment:
+  Enabled: false
+
+Layout/BlockEndNewline:
+  Enabled: false
+
+#no
+Style/GuardClause:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Layout/SpaceBeforeFirstArg:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false # Doesn't understand `has_secure_token`, though there's promising discussion here: https://github.com/bbatsov/rubocop/issues/1741
+
+#no
+Style/Next:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Layout/CaseIndentation:
+  Enabled: false
+
+#no
+Style/ParallelAssignment:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: true
+  CountComments: false
+  Max: 300
+  Exclude:
+    - "**/*_spec.rb"
+
+Layout/LineLength:
+  Max: 120
+
+#no
+Style/StringLiterals:
+  Enabled: false
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+  ConsistentQuotesInMultiline: false
+
+Metrics/ParameterLists:
+  Max: 6
+
+Layout/DotPosition:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Layout/ArrayAlignment:
+  Enabled: false
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+#no
+Style/AndOr:
+  Enabled: false
+
+#no
+Style/BlockDelimiters:
+  Enabled: false
+
+#no
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+# Disable some New Rules from Rubocop 0.39
+#no
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Description: >-
+                 Checks for ambiguous regexp literals in the first argument of
+                 a method invocation without parenthesis.
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false # At the moment MultiEditble is the problem, for has_many through we'd need to interpolate the join table for Configs and Docs
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: true
+  ForbiddenMethods:
+    - decrement!
+    - decrement_counter
+    - increment!
+    - increment_counter
+    - toggle!
+    - touch
+    - update_all
+    - update_attribute
+    - update_columns
+    - update_counters
+  Exclude:
+      - "app/models/member.rb"
+      - "app/models/organisation.rb"
+      - "**/*_spec.rb"
+
+Rails/ActiveRecordAliases:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - staging
+    - development
+    - test
+    - production
+
+RSpec/FactoryBot/CreateList:
+  Enabled: false
+RSpec/Rails/HttpStatus:
+  Enabled: false
+
+# I18n/Coverage config is at .rubocop_i18n.yml

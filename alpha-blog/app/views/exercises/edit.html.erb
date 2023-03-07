@@ -1,0 +1,19 @@
+<h3>Edit an exercise task</h3>
+<%= render 'exercises/form'%>
+<%
+=begin%>
+<%= form_with scope: :exercise, url: exercises_path(@exercise), method: :patch, local: true do |f| %>
+  <p>
+    <%= f.label :question<br/> %>
+    <%= f.text_field :question %>
+  </p>
+  <p>
+    <%= f.label :answer<br/> %>
+    <%= f.text_field :answer %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<% 
+=end %>

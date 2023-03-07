@@ -1,0 +1,28 @@
+<% if @exercise && @exercise.errors.any?%>
+    <h2>The following errors prevented the exercise from being save</h2>
+    <ul style="width: 50%">
+      <% @exercise.errors.full_messages.each do |message| %>
+        <li style="list-style: none; background-color:red; padding: .5rem; margin-bottom: .5rem;">
+          <span style="color: white;"><strong><%= message %></strong></span>    
+        </li>
+      <%end%>
+    </ul>
+  <%end %>
+
+<%# with form_with(model:, local: true) will automatically specify method patch for us %>
+<%= form_with(model: @exercise, local: true ) do |f| %> 
+  <p>
+    <%= f.label :question %><br/>
+    <%= f.text_field :question %>
+  </p>
+  <p>
+    <%= f.label :answer %><br/>
+    <%= f.text_field :answer %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<br/>
+<%= link_to 'Back to List', exercises_path %>
+<br/>
