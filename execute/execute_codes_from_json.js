@@ -5,7 +5,7 @@ const fs = require('fs').promises;
   try {
     let data = await JSON.parse(await fs.readFile("buildings.json", 'utf-8'));
     console.log(data.length);
-    fullData = (data.reduce((a, r) => a += `${r.POSTAL}\r\n`, ""))
+    fullData = (data.reduce((a, r) => a += `${r.POSTAL},${r.ADDRESS} \r\n`, ""))
     // data = data.map(x => x.POSTAL)
     // fullData.push(data.map(r => {
     //   return {
@@ -17,5 +17,5 @@ const fs = require('fs').promises;
     console.error(error);
   }
 
-  await fs.writeFile("sg_postal_codes_from_building.csv", fullData);
+  await fs.writeFile("sg_postal_codes_address_from_building.csv", fullData);
 })();
